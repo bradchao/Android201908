@@ -26,5 +26,11 @@
         android:text="test3"
         android:onClick="test3"
         />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="test4"
+        android:onClick="test4"
+        />
 
 </LinearLayout>

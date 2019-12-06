@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 public class MainActivity extends AppCompatActivity {
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     public void test2(View view) {
         File file1 = new File(approot, "bradiii.txt");
         try {
-            FileOutputStream fout = new FileOutputStream(file1);
+            FileOutputStream fout = new FileOutputStream(file1, true);
             fout.write("Hello,Brad\n".getBytes());
             fout.flush();
             fout.close();
@@ -87,4 +88,24 @@ public class MainActivity extends AppCompatActivity {
             Log.v("brad", "OK2");
         }
     }
+
+    public void test4(View view){
+        File file1 = new File(approot, "bradiii.txt");
+        try {
+            FileInputStream fin = new FileInputStream(file1);
+            int len; byte[] buf = new byte[4096];
+            while ( (len = fin.read(buf)) != -1){
+                Log.v("brad", new String(buf,0, len));
+            }
+
+
+            fin.close();
+        }catch (Exception e){
+
+        }
+
+
+    }
+
+
 }
