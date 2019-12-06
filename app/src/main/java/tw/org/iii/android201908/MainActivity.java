@@ -7,10 +7,13 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,6 +21,7 @@ import java.io.FileOutputStream;
 
 public class MainActivity extends AppCompatActivity {
     private File sdroot, approot;
+    private ImageView img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init(){
+        img = findViewById(R.id.img);
+
         sdroot = Environment.getExternalStorageDirectory();
         approot = new File(sdroot, "Android/data/" + getPackageName());
         if (!approot.exists()){
@@ -103,9 +109,24 @@ public class MainActivity extends AppCompatActivity {
         }catch (Exception e){
 
         }
-
-
     }
 
 
+    public void test5(View view) {
+        File dcimDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+        File[] files = dcimDir.listFiles();
+        for (File file : files){
+            Log.v("brad", file.getAbsolutePath());
+        }
+
+        File pic = new File(dcimDir, "Camera/IMG_20180808_171602.jpg");
+        //Bitmap bmp = BitmapFactory.decodeFile(pic.getAbsolutePath());
+        try {
+            Bitmap bmp = BitmapFactory.decodeStream(new FileInputStream(pic));
+            img.setImageBitmap(bmp);
+        }catch (Exception e){
+            
+        }
+
+    }
 }
