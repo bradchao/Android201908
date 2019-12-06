@@ -10,11 +10,13 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.View;
 
 import java.io.File;
+import java.io.FileOutputStream;
 
 public class MainActivity extends AppCompatActivity {
-    private File sdroot;
+    private File sdroot, approot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,43 @@ public class MainActivity extends AppCompatActivity {
 
     private void init(){
         sdroot = Environment.getExternalStorageDirectory();
-        Log.v("brad", sdroot.getAbsolutePath());
+        approot = new File(sdroot, "Android/data/" + getPackageName());
+        if (!approot.exists()){
+            approot.mkdir();
+        }
     }
 
+    public void test1(View view){
+        File file1 = new File(sdroot, "bradiii.txt");
+        try {
+            FileOutputStream fout = new FileOutputStream(file1);
+            fout.write("Hello,Brad\n".getBytes());
+            fout.flush();
+            fout.close();
+        }catch (Exception e){
+            Log.v("brad", e.toString());
+        }
+    }
+
+    public void test2(View view) {
+        File file1 = new File(approot, "bradiii.txt");
+        try {
+            FileOutputStream fout = new FileOutputStream(file1);
+            fout.write("Hello,Brad\n".getBytes());
+            fout.flush();
+            fout.close();
+        }catch (Exception e){
+            Log.v("brad", e.toString());
+        }
+    }
+    public void test3(View view) {
+        File file1 = new File(sdroot, "Android/data/tw.org.iii.appps.brad07");
+        File file2 = new File(sdroot, "bradiii.txt");
+        if (file1.delete()){
+            Log.v("brad","ok1");
+        }
+        if (file2.delete()){
+            Log.v("brad", "OK2");
+        }
+    }
 }
