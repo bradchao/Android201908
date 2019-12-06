@@ -8,8 +8,13 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
+    private File sdroot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init(){
-
+        sdroot = Environment.getExternalStorageDirectory();
+        Log.v("brad", sdroot.getAbsolutePath());
     }
 
 }
